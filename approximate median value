@@ -1,0 +1,13 @@
+
+intervals <- c("1-5", "5-15", "15-20", "20-50", "50-80", "80-110")
+frequencies <- c(200, 450, 300, 1500, 700, 44)
+midpoints <- c(3, 10, 17.5, 35, 65, 95)  
+cumulative_frequencies <- cumsum(frequencies)
+total_n <- sum(frequencies)
+median_class_index <- which(cumulative_frequencies >= total_n / 2)[1]
+L <- c(1, 5, 15, 20, 50, 80)[median_class_index]  # Lower boundary of median class
+F <- ifelse(median_class_index == 1, 0, cumulative_frequencies[median_class_index - 1]) # Cumulative freq before median class
+f <- frequencies[median_class_index]  # Frequency of median class
+h <- c(4, 10, 5, 30, 30, 30)[median_class_index]  # Class width
+median_approx <- L + ((total_n / 2 - F) / f) * h
+print(paste("Approximate Median:", median_approx))
